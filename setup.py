@@ -26,7 +26,7 @@ def read_version():
 
 
 setup(
-    name='astunparse',
+    name='py-backwards-astunparse',
     version=read_version(),
     description='An AST unparser for Python',
     long_description=readme + '\n\n' + history,
