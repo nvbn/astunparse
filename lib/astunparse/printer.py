@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 import sys
-import ast
+from typed_ast import ast3 as ast
 import six
 
 

@@ -1,4 +1,4 @@
-import ast
+from typed_ast import ast3 as ast
 import re
 import sys
 if sys.version_info < (2, 7):
@@ -18,7 +18,7 @@ class DumpTestCase(AstunparseCommonTestCase, unittest.TestCase):
         self.assertEqual(dump1, dump2)
 
     def check_roundtrip(self, code1, filename="internal", mode="exec"):
-        ast_ = compile(str(code1), filename, mode, ast.PyCF_ONLY_AST)
+        ast_ = ast.parse(str(code1))
         dump1 = astunparse.dump(ast_)
         dump2 = ast.dump(ast_)
         self.assertASTEqual(dump1, dump2)

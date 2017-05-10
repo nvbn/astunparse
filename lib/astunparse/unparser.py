@@ -2,7 +2,8 @@
 from __future__ import print_function, unicode_literals
 import six
 import sys
-import ast
+from typed_ast import ast3 as ast
+import ast as builtin_ast
 import os
 import tokenize
 from six import StringIO
@@ -639,7 +640,8 @@ class Unparser:
             self.dispatch(e)
         self.write(")")
 
-    boolops = {ast.And: 'and', ast.Or: 'or'}
+    boolops = {ast.And: 'and', ast.Or: 'or',
+               builtin_ast.And: 'and', builtin_ast.Or: 'or'}
     def _BoolOp(self, t):
         self.write("(")
         s = " %s " % self.boolops[t.op.__class__]
