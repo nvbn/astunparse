@@ -8,6 +8,19 @@ import os
 import tokenize
 from six import StringIO
 
+
+class SysWrapper:
+    def __init__(self, sys):
+        self.sys = sys
+
+    @property
+    def version_info(self):
+        return 3, 6, 1
+
+    def __getattr__(self, item):
+        return getattr(self.sys, item)
+sys = SysWrapper(sys)
+
 # Large float and imaginary literals get turned into infinities in the AST.
 # We unparse those infinities to INFSTR.
 INFSTR = "1e" + repr(sys.float_info.max_10_exp + 1)
