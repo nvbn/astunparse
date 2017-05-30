@@ -288,6 +288,10 @@ class AstunparseCommonTestCase:
     def test_bytes(self):
         self.check_roundtrip("b'123'")
 
+    def test_str(self):
+        self.check_roundtrip("u'123'")
+        self.check_roundtrip("from __future__ import unicode_literals; u'123'")
+
     @unittest.skipIf(sys.version_info < (3, 6), "Not supported < 3.6")
     def test_formatted_value(self):
         self.check_roundtrip('f"{value}"')

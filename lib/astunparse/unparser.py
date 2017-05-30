@@ -441,20 +441,13 @@ class Unparser:
         self.write(repr(t.s))
 
     def _Str(self, tree):
-        if six.PY3:
-            self.write(repr(tree.s))
+        # if from __future__ import unicode_literals is in effect,
+        # then we want to output string literals using a 'b' prefix
+        # and unicode literals with no prefix.
+        if "unicode_literals" in self.future_imports:
+            self.write('u' + repr(tree.s))
         else:
-            # if from __future__ import unicode_literals is in effect,
-            # then we want to output string literals using a 'b' prefix
-            # and unicode literals with no prefix.
-            if "unicode_literals" not in self.future_imports:
-                self.write(repr(tree.s))
-            elif isinstance(tree.s, str):
-                self.write("b" + repr(tree.s))
-            elif isinstance(tree.s, unicode):
-                self.write(repr(tree.s).lstrip("u"))
-            else:
-                assert False, "shouldn't get here"
+            self.write(repr(tree.s))
 
     format_conversions = {97: 'a', 114: 'r', 115: 's'}
 
