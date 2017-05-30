@@ -5,8 +5,15 @@ import os
 import re
 from setuptools import setup, find_packages
 
-readme = open('README.md').read()
-history = open('HISTORY.rst').read().replace('.. :changelog:', '')
+try:
+    readme = open('README.md').read()
+except:
+    readme = ''
+
+try:
+    history = open('HISTORY.rst').read().replace('.. :changelog:', '')
+except:
+    history = ''
 
 
 def read_reqs(name):
